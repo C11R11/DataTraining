@@ -27,7 +27,7 @@ def generador_datos_simple(beta, muestras, desviacion):
 # Parámetros de la distribución
 desviacion = 200
 beta = 10
-n = 50
+n = 100
 x, y = generador_datos_simple(beta, n, desviacion)
  
 # Represento los datos generados
@@ -44,13 +44,21 @@ print('Coeficiente beta1: ', modelo.coef_[0])
  
 # Podemos predecir usando el modelo
 y_pred = modelo.predict(x)
+
+errror_cuad_medio = mean_squared_error(y, y_pred)
+r2_score = r2_score(y, y_pred)
  
 # Por último, calculamos el error cuadrático medio y el estadístico R^2
-print('Error cuadrático medio: %.2f' % mean_squared_error(y, y_pred))
-print('Estadístico R_2: %.2f' % r2_score(y, y_pred))
+print('Error cuadrático medio: %.2f' % errror_cuad_medio)
+print('Estadístico R_2: %.2f' % r2_score)
+
+x_20 = modelo.predict([[20]])
+y_37_3341 = modelo.predict([x[0]])
 
 # Representamos el ajuste (rojo) y la recta Y = beta*x (verde)
 plt.scatter(x, y)
+plt.scatter(20,x_20, color='black')
+plt.scatter(x[0] ,y_37_3341, color='black')
 plt.plot(x, y_pred, color='red')
 x_real = np.array([0, 100])
 y_real = x_real*beta
